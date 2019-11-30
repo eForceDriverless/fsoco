@@ -39,6 +39,9 @@ def transform_folder(path, trans_str, recursive=False):
     """
     calls transform_file function on all files in a folder
     """
+    if path[-1] == '/':
+        path = path[:-1]
+
     if not recursive:
         for file in os.listdir(path):
             if '.txt' in file:
@@ -70,6 +73,7 @@ if __name__ == '__main__':
     print_trans_str(args.trans_str)
     print("Are you sure, that you want to reorder classes in this way? (yes)")
     confirm = input("yes/no: ")
+
     
 
     if confirm == "yes":
