@@ -25,6 +25,8 @@ def transform_file(filename, trans_str):
 
     for line in lines:
         line = list(line)
+        if line[0] == '\n':
+            continue
         line[0] = transform_label(trans_str, line[0])
         line = "".join(line)
         out_lines.append(line)
@@ -52,10 +54,15 @@ def transform_folder(path, trans_str, recursive=False):
         for r, d, f in os.walk(path):
             for file in f:
                 if '.txt' in file:
+                    filename = f"{r}/{file}"
+                    """
                     if len(d) == 0:
+                        print("hi")
                         filename = f"./{path}/{file}"
                     else:
+                        print("hello")
                         filename = f"./{path}/{'/'.join(d)}/{file}"
+                        """
                     print(filename)
                     transform_file(filename, trans_str)
 
@@ -67,12 +74,19 @@ if __name__ == '__main__':
     parser.add_argument("-r", "--recursive", \
             help="reorders classes in all txt files in all folders",
             action="store_true")
+    parser.add_argument("-y", "--yes", \
+            help="doesn't ask for confirmation",
+            action="store_true")
     parser.add_argument("path")
     parser.add_argument("trans_str")
     args = parser.parse_args()
     print_trans_str(args.trans_str)
-    print("Are you sure, that you want to reorder classes in this way? (yes)")
-    confirm = input("yes/no: ")
+
+    if args.yes:
+        confirm = "yes"
+    else:
+        print("Are you sure, that you want to reorder classes in this way? (yes)")
+        confirm = input("yes/no: ")
 
     
 
