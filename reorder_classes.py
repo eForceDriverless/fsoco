@@ -48,7 +48,7 @@ def transform_folder(path, trans_str, recursive=False):
         for file in os.listdir(path):
             if '.txt' in file:
                 filename = f"./{path}/{file}"
-                print(filename)
+                # print(filename)
                 transform_file(filename, trans_str)
     else:
         for r, d, f in os.walk(path):
@@ -63,7 +63,7 @@ def transform_folder(path, trans_str, recursive=False):
                         print("hello")
                         filename = f"./{path}/{'/'.join(d)}/{file}"
                         """
-                    print(filename)
+                    # print(filename)
                     transform_file(filename, trans_str)
 
 
