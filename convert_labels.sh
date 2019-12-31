@@ -1,60 +1,227 @@
-# amz - only missing big orange class, otherwise has same class order
+DEST=converted
 
-# bmefrt - big & small orange swapped
-python reorder_classes.py -y labels/bmefrt/bmefrt_2019 0132
+if [ ! -d "$DEST" ]
+then
+  mkdir "$DEST"
+fi
 
-# dart - xml format
+## amz - only missing big orange class, otherwise has same class order
+NAME="amz"
+echo "Extracting $NAME"
+mkdir "$NAME"
+cp labels/$NAME/amz_2019/* "$NAME"
+for filename in "$NAME"/*; do
+  # echo $filename
+  mv "$filename" "converted/$NAME-$(basename "$filename")"
+done
+rm -rf "$NAME"
 
-# dhbwengineering - blue & yellow swapped
-rm labels/dhbwengineering/yolo_format/image_list.txt
-python reorder_classes.py -y labels/dhbwengineering/yolo_format 1023
+## bmefrt - big & small orange swapped
+NAME="bmefrt"
+echo "Converting & extracting $NAME"
+mkdir "$NAME"
+cp labels/$NAME/bmefrt_2019/* "$NAME"
+python reorder_classes.py -y "$NAME" 0132
+for filename in "$NAME"/*; do
+  # echo $filename
+  mv "$filename" "converted/$NAME-$(basename "$filename")"
+done
+rm -rf "$NAME"
 
-# DimitrisMartinArampatzis - blue & yellow swapped
-python reorder_classes.py -y labels/DimitrisMartinArampatzis/dma_labels/ 1023
+## dart - xml format
 
-# driverless_UPC - VOC format
+## dhbwengineering - blue & yellow swapped
+NAME="dhbwengineering"
+echo "Converting & extracting $NAME"
+mkdir "$NAME"
+cp labels/$NAME/yolo_format/* "$NAME"
+rm $NAME/image_list.txt
+python reorder_classes.py -y "$NAME" 1023
+for filename in "$NAME"/*; do
+  # echo $filename
+  mv "$filename" "converted/$NAME-$(basename "$filename")"
+done
+rm -rf "$NAME"
 
-# eforce (that be we)
+## DimitrisMartinArampatzis - blue & yellow swapped
+NAME="DimitrisMartinArampatzis"
+echo "Converting & extracting $NAME"
+mkdir "$NAME"
+cp labels/$NAME/dma_labels/* "$NAME"
+python reorder_classes.py -y "$NAME" 1023
+for filename in "$NAME"/*; do
+  # echo $filename
+  mv "$filename" "converted/$NAME-$(basename "$filename")"
+done
+rm -rf "$NAME"
 
-# egnition - missing big orange, otherwise same order
+## driverless_UPC - VOC format
 
-# elbflorace - same labels
+## eforce (that be us)
+NAME="eforce"
+echo "Extracting $NAME"
+mkdir "$NAME"
+cp labels/$NAME/eforce_2019/* "$NAME"
+for filename in "$NAME"/*; do
+  # echo $filename
+  mv "$filename" "converted/$NAME-$(basename "$filename")"
+done
+rm -rf "$NAME"
 
-# eufs - same labels
+## egnition - missing big orange, otherwise same order
+NAME="egnition"
+echo "Extracting $NAME"
+mkdir "$NAME"
+cp labels/$NAME/egn_2019/* "$NAME"
+for filename in "$NAME"/*; do
+  # echo $filename
+  mv "$filename" "converted/$NAME-$(basename "$filename")"
+done
+rm -rf "$NAME"
 
-# fastforest (green cones) - ignore for now
+## elbflorace - same labels
+NAME="elbflorace"
+echo "Extracting $NAME"
+mkdir "$NAME"
+cp labels/$NAME/efr_2019/* "$NAME"
+for filename in "$NAME"/*; do
+  # echo $filename
+  mv "$filename" "converted/$NAME-$(basename "$filename")"
+done
+rm -rf "$NAME"
 
-# fsteamtallinn - same labels
+## eufs - same labels
+NAME="eufs"
+echo "Extracting $NAME"
+mkdir "$NAME"
+cp labels/$NAME/eufs_2019/* "$NAME"
+for filename in "$NAME"/*; do
+  # echo $filename
+  mv "$filename" "converted/$NAME-$(basename "$filename")"
+done
+rm -rf "$NAME"
 
-# fsteamweingarten - (nothing cones) - ignore for now
+## fastforest (green cones) - ignore for now
 
-# getracing - (red cones) - ignore for now
+## fsteamtallinn - same labels
+NAME="fsteamtallinn"
+echo "Extracting $NAME"
+mkdir "$NAME"
+cp labels/$NAME/fstt_2019/* "$NAME"
+for filename in "$NAME"/*; do
+  # echo $filename
+  mv "$filename" "converted/$NAME-$(basename "$filename")"
+done
+rm -rf "$NAME"
 
-# GFR - TODO
+## fsteamweingarten - (nothing cones) - ignore for now
 
-# greenteam - same labels
+## getracing - (red cones) - ignore for now
 
-# hod - blue & yellow swapped 
-python reorder_classes.py -y labels/hod/high-octane_2019 1023
+## GFR - TODO
 
-# ituracing - blue & yellow swapped
-python reorder_classes.py -y labels/ituracing/itu_2019 1023
+## greenteam - same labels
+NAME="greenteam"
+echo "Extracting $NAME"
+mkdir "$NAME"
+cp labels/$NAME/greenteam_2019/* "$NAME"
+for filename in "$NAME"/*; do
+  # echo $filename
+  mv "$filename" "converted/$NAME-$(basename "$filename")"
+done
+rm -rf "$NAME"
 
-# kthfs - only "cone" label - ignoring
+## hod - blue & yellow swapped 
+NAME="hod"
+echo "Converting & extracting $NAME"
+mkdir "$NAME"
+cp labels/$NAME/high-octane_2019/* "$NAME"
+python reorder_classes.py -y "$NAME" 1023
+for filename in "$NAME"/*; do
+  # echo $filename
+  mv "$filename" "converted/$NAME-$(basename "$filename")"
+done
+rm -rf "$NAME"
 
-# mms - blue & yellow swapped
-rm labels/mms/info.txt labels/mms/mms-classes.txt
-python reorder_classes.py -ry labels/mms 1023
+## ituracing - blue & yellow swapped
+NAME="ituracing"
+echo "Converting & extracting $NAME"
+mkdir "$NAME"
+cp labels/$NAME/itu_2019/* "$NAME"
+python reorder_classes.py -y "$NAME" 1023
+for filename in "$NAME"/*; do
+  # echo $filename
+  mv "$filename" "converted/$NAME-$(basename "$filename")"
+done
+rm -rf "$NAME"
 
-# raceyard - MM-Label Tool format - ignore for now
+## kthfs - only "cone" label - ignoring
 
-# scut - red_cones (stand and down) - ignore for now
+### mms - blue & yellow swapped
+NAME="mms"
+echo "Converting & extracting $NAME"
+mkdir "$NAME"
 
-# StarkStromAugsburg - same labels
+# merge all the folders into temp folder
+for folder_name in labels/$NAME/*/; do
+  echo $folder_name
+  cp "$folder_name"/* $NAME
+done
 
-# unicamp eracing - missing big orange, otherwise same order
+python reorder_classes.py -y "$NAME" 1023
 
-# vermilion - only blue & yellow, but in correct order
+for filename in "$NAME"/*; do
+  # echo $filename
+  mv "$filename" "converted/$NAME-$(basename "$filename")"
+done
+rm -rf "$NAME"
 
-# WisconsinAutonomous - blue & yellow swapped and no big orange
-python reorder_classes.py -y labels/WisconsinAutonomous/WA_19 1023
+## raceyard - MM-Label Tool format - ignore for now
+
+## scut - red_cones (stand and down) - ignore for now
+
+## StarkStromAugsburg - same labels
+NAME="StarkStromAugsburg"
+echo "Extracting $NAME"
+mkdir "$NAME"
+cp labels/$NAME/ssa_2019/* "$NAME"
+for filename in "$NAME"/*; do
+  # echo $filename
+  mv "$filename" "converted/$NAME-$(basename "$filename")"
+done
+rm -rf "$NAME"
+
+## unicamp eracing - missing big orange, otherwise same order
+NAME="unicamp_eracing"
+echo "Extracting $NAME"
+mkdir "$NAME"
+cp labels/unicamp\ eracing/unicamp_labels/* "$NAME"
+for filename in "$NAME"/*; do
+  # echo $filename
+  mv "$filename" "converted/$NAME-$(basename "$filename")"
+done
+rm -rf "$NAME"
+
+## vermilion - only blue & yellow, but in correct order
+NAME="vermilion"
+echo "Extracting $NAME"
+mkdir "$NAME"
+cp labels/$NAME/vermilion_2019/* "$NAME"
+for filename in "$NAME"/*; do
+  # echo $filename
+  mv "$filename" "converted/$NAME-$(basename "$filename")"
+done
+rm -rf "$NAME"
+
+## WisconsinAutonomous - blue & yellow swapped and no big orange
+NAME="WisconsinAutonomous"
+echo "Converting & extracting $NAME"
+mkdir "$NAME"
+cp labels/$NAME/WA_19/* "$NAME"
+python reorder_classes.py -y "$NAME" 1023
+for filename in "$NAME"/*; do
+  # echo $filename
+  mv "$filename" "converted/$NAME-$(basename "$filename")"
+done
+rm -rf "$NAME"
+
