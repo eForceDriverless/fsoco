@@ -21,7 +21,7 @@ NAME="bmefrt"
 echo "Converting & extracting $NAME"
 mkdir "$NAME"
 cp labels/$NAME/bmefrt_2019/* "$NAME"
-python reorder_classes.py -y "$NAME" 0132
+python3 reorder_classes.py -y "$NAME" 0132
 for filename in "$NAME"/*; do
   # echo $filename
   mv "$filename" "converted/$NAME-$(basename "$filename")"
@@ -36,7 +36,7 @@ echo "Converting & extracting $NAME"
 mkdir "$NAME"
 cp labels/$NAME/yolo_format/* "$NAME"
 rm $NAME/image_list.txt
-python reorder_classes.py -y "$NAME" 1023
+python3 reorder_classes.py -y "$NAME" 1023
 for filename in "$NAME"/*; do
   # echo $filename
   mv "$filename" "converted/$NAME-$(basename "$filename")"
@@ -48,7 +48,7 @@ NAME="DimitrisMartinArampatzis"
 echo "Converting & extracting $NAME"
 mkdir "$NAME"
 cp labels/$NAME/dma_labels/* "$NAME"
-python reorder_classes.py -y "$NAME" 1023
+python3 reorder_classes.py -y "$NAME" 1023
 for filename in "$NAME"/*; do
   # echo $filename
   mv "$filename" "converted/$NAME-$(basename "$filename")"
@@ -136,7 +136,7 @@ NAME="hod"
 echo "Converting & extracting $NAME"
 mkdir "$NAME"
 cp labels/$NAME/high-octane_2019/* "$NAME"
-python reorder_classes.py -y "$NAME" 1023
+python3 reorder_classes.py -y "$NAME" 1023
 for filename in "$NAME"/*; do
   # echo $filename
   mv "$filename" "converted/$NAME-$(basename "$filename")"
@@ -148,7 +148,7 @@ NAME="ituracing"
 echo "Converting & extracting $NAME"
 mkdir "$NAME"
 cp labels/$NAME/itu_2019/* "$NAME"
-python reorder_classes.py -y "$NAME" 1023
+python3 reorder_classes.py -y "$NAME" 1023
 for filename in "$NAME"/*; do
   # echo $filename
   mv "$filename" "converted/$NAME-$(basename "$filename")"
@@ -168,7 +168,7 @@ for folder_name in labels/$NAME/*/; do
   cp "$folder_name"/* $NAME
 done
 
-python reorder_classes.py -y "$NAME" 1023
+python3 reorder_classes.py -y "$NAME" 1023
 
 for filename in "$NAME"/*; do
   # echo $filename
@@ -218,7 +218,7 @@ NAME="WisconsinAutonomous"
 echo "Converting & extracting $NAME"
 mkdir "$NAME"
 cp labels/$NAME/WA_19/* "$NAME"
-python reorder_classes.py -y "$NAME" 1023
+python3 reorder_classes.py -y "$NAME" 1023
 for filename in "$NAME"/*; do
   # echo $filename
   mv "$filename" "converted/$NAME-$(basename "$filename")"
